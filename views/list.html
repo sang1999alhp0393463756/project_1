@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<htPl lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<style>
+    body{
+        margin: 30px;
+    }
+    .input-group{
+        margin-bottom: 10px;
+    }
+    .paging{
+      margin: 10px;
+    }
+    .paging .color{
+      background-color: black;
+      color: white;
+      border: 0;
+    }
+    .paging .colorIndex{
+      background-color: coral;
+      color: black;
+      border: 0;
+    }
+</style>
+<body>
+    <div class="input-group">
+        <select class="custom-select" id="inputGroupSelect04">
+
+        </select>
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" id="search">search</button>
+        </div>
+      </div>
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">username</th>
+            <th scope="col">password</th>
+            <th scope="col">phone</th>
+            <th scope="col">sửa</th>
+            <th scope="col">xóa</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+      <div class="paging">
+       
+      </div>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+        Create accout
+      </button>
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                  username: <input type="text" id="createUsername" required><br>
+                  password: <input type="text" id="createPassword" required><br>
+                  phone: <input type="text" id="createPhone">
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="create">create</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+</body>
+<script>
+  var index = 1;
+  function getPaging(){
+   $(".paging").empty();
+    $.ajax({
+            url: '/',
+            type:'GET'
+        }).then(data=>{
+       var pagingSize = Math.ceil(data.length/5);
+       var btnIndex1 =`
+         <button class="colorIndex" type="button" id="paging-1" value="1" onclick=indexFunction(1) >1</button>`
+         $(".paging").append(btnIndex1);
+       for(var i=2;i<=pagingSize;i++){
+         var btnIndex =`
+         <button  class="color" type="button" id="paging-${i}" value="${i}" onclick=indexFunction("${i}")>${i}</button>
+         `
+         $(".paging").append(btnIndex);
+       }
+  })
+  }
+  getPaging();
+    function getData(index){
+     
+        $("tbody").empty();
+
+        $(".custom-select").empty();
+        $.ajax({
+            url: '/',
+            type:'GET'
+        }).then(data=>{
+       var optionAll = '<option value="0">All</option>'
+            $("#inputGroupSelect04").append(optionAll);
+            for(var i=0;i<data.length;i++){
+              var optionId =`
+            <option value="${data[i]._id}">${data[i]._id}</option>
+            `
+            $("#inputGroupSelect04").append(optionId);
+            }
+       $.ajax({
+            url: '/'+index,
+            type:'GET'
+       }).then(data=>{
+        console.log(index);
+        for(var i =0;i<data.length;i++){
+                var templete = `  
+            <tr>
+            <td>
+                <p>${data[i].username}</p>
+                <input type="text" style="display:none" name="username" id="username" value="${data[i].username}">
+                </td>
+            <td><p>${data[i].password}</p>
+                <input type="text" style="display:none" name="password" id="password" value="${data[i].password}">
+                </td>
+            <td><p>${data[i].phone}</p>
+                <input type="text" style="display:none" name="phone" id="phone" value="${data[i].phone}">
+                </td>
+            <td><button type="button" class="btn btn-outline-secondary"  onclick=editFunction("${data[i]._id}") id="edit-${data[i]._id}">sửa</button>
+                <button type="button" class="btn btn-outline-secondary" style="display:none" onclick=saveFunction("${data[i]._id}") id="save-${data[i]._id}">save</button>
+                <button type="button" class="btn btn-outline-secondary" style="display:none" onclick=huyFunction("${data[i]._id}") id="huy-${data[i]._id}">hủy</button>
+                </td>
+            <td><button type="button" class="btn btn-outline-secondary" onclick=deleteFunction("${data[i]._id}")  data-toggle="modal" data-target="#exampleModal">xóa</button></td>
+          </tr>       
+            `
+          
+
+            $("tbody").append(templete);
+            }
+
+       })     
+        })
+    }
+    function editFunction(id){
+        $("#edit-"+id).css("display","none");
+        $("#save-"+id).css("display","inline-block");
+        $("#huy-"+id).css("display","inline-block");
+        $("#edit-"+id).parent().parent().find("p").css("display","none");
+        $("#edit-"+id).parent().parent().find("input").css("display","inline-block");
+      
+    };
+    function huyFunction(id){
+        $("#edit-"+id).css("display","inline-block");
+        $("#save-"+id).css("display","none");
+        $("#huy-"+id).css("display","none");
+        $("#edit-"+id).parent().parent().find("p").css("display","inline-block");
+        $("#edit-"+id).parent().parent().find("input").css("display","none");
+        getData(index);
+    };
+    function saveFunction(id){
+        $("#edit-"+id).css("display","inline-block");
+        $("#save-"+id).css("display","none");
+        $("#huy-"+id).css("display","none");
+        $("#edit-"+id).parent().parent().find("p").css("display","inline-block");
+        $("#edit-"+id).parent().parent().find("input").css("display","none");
+       
+         var username = $("#save-"+id).parent().parent().find("#username").val();
+         var password = $("#save-"+id).parent().parent().find("#password").val();
+         var phone = $("#save-"+id).parent().parent().find("#phone").val();
+        var id = id;
+     console.log(id);
+        $.ajax({
+            url: '/',
+            type: 'PUT',
+            data :{
+                id: id,
+                username : username,
+                password : password,
+                phone : phone
+            }
+        }).then(data=>{
+            getData(index);
+    //  window.location.href ="http://localhost:3000/list";
+        })
+     
+    };
+
+function deleteFunction(id){
+    var id = id;
+    var templete =  `
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Xóa tài khoản có id : ${id}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>bạn có chắc chắn muốn xóa</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">HỦY</button>
+        <button type="button" class="btn btn-primary" onclick=clearFunction("${id}") data-dismiss="modal" >XÓA</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    `
+$("body").append(templete);
+
+  
+}
+
+function clearFunction(id){
+    console.log(id);
+  $.ajax({
+        url : '/',
+        type: 'DELETE',
+        data : {
+            id : id
+        }
+    }).then(data=>{
+      var pagingSize = Math.ceil(data.length/5);
+      if(pagingSize<index){
+        $("#paging-"+index).remove();
+        index=1;
+        getPaging();
+      }
+
+        alert("xoa thanh cong");
+        getData(index);
+        // window.location.href ="http://localhost:3000/list";
+    })
+}
+$("#search").click(function(){
+    $("tbody").empty();
+    var id = $(this).parent().parent().find("#inputGroupSelect04").val();
+    console.log(id);
+    if(id==0){
+    
+      getPaging();
+      getData(index);
+    }else{
+        $.ajax({
+            url: '/list/'+id,
+            type:'GET',
+        }).then(data=>{
+            console.log(data);
+            var templete = `  
+            <tr>
+            <td>
+                <p>${data[0].username}</p>
+                <input type="text" style="display:none" name="username" id="username" value="${data[0].username}">
+                </td>
+            <td><p>${data[0].password}</p>
+                <input type="text" style="display:none" name="password" id="password" value="${data[0].password}">
+                </td>
+            <td><p>${data[0].phone}</p>
+                <input type="text" style="display:none" name="phone" id="phone" value="${data[0].phone}">
+                </td>
+            <td><button type="button" class="btn btn-outline-secondary"  onclick=editFunction("${data[0]._id}") id="edit-${data[0]._id}">sửa</button>
+                <button type="button" class="btn btn-outline-secondary" style="display:none" onclick=saveFunction("${data[0]._id}") id="save-${data[0]._id}">save</button>
+                <button type="button" class="btn btn-outline-secondary" style="display:none" onclick=huyFunction("${data[0]._id}") id="huy-${data[0]._id}">hủy</button>
+                </td>
+            <td><button type="button" class="btn btn-outline-secondary" onclick=deleteFunction("${data[0]._id}")  data-toggle="modal" data-target="#exampleModal">xóa</button></td>
+          </tr>       
+            `
+            $("tbody").append(templete);
+            $(".paging").empty();
+        })
+    }
+})    
+
+$("#create").click(function(){
+    var username = $(this).parent().parent().find("#createUsername").val();
+    var password = $(this).parent().parent().find("#createPassword").val();
+    var phone = $(this).parent().parent().find("#createPhone").val();
+    console.log(username);
+    $.ajax({
+        url: '/',
+        type: 'POST',
+        data:{
+            username :username,
+            password :password,
+            phone:phone
+        }
+    }).then(data=>{
+        if(username==''||password==''||phone==''){
+            data.error = false;
+        }
+        if(data.error){  
+            alert("dang ki thanh cong");   
+            $("#exampleModalCenter").modal("hide");
+            
+            getData(index); 
+            getPaging();
+        }else{
+            alert("tai khoan hoac mat khau da ton tai");
+        }
+    })
+})
+
+function indexFunction(i){
+  $("button").removeClass("colorIndex");
+  $("button").addClass("color");
+  $("#paging-"+i).removeClass("color");
+  $("#paging-"+i).addClass("colorIndex");
+  index = i;
+getData(index);
+
+}
+    getData(index);
+    
+</script>
+</htPl>

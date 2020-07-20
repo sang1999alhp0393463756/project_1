@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <form>
+       username: <input type="text" name="username" id="username"><br>
+       password: <input type="text" name="password" id="password"><br>
+        <button class="btn" type="button">login</button>
+    </form>
+</body>
+<script>
+    $(".btn").click(function(){
+        var username = $("#username").val();
+        var password = $("#password").val();
+        $.ajax({
+            url : '/login',
+            type : 'POST',
+            data : {
+                username : username,
+                password : password
+            }
+        }).then(data=>{
+            if(data.error){
+                window.location.href = "http://localhost:3000/list"
+            }else{
+                alert(data.message);
+            }
+        })
+    })
+</script>
+</html>
