@@ -1,5 +1,4 @@
 var accoutModel = require('../modal/account_modal');
-
 function getAll(){
     return accoutModel.find();
 }
