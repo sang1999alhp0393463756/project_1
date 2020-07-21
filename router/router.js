@@ -2,13 +2,13 @@ var router = require('express').Router();
 var path = require('path');
 var notification = require('../notification/notification');
 var accountService = require('../services/account_services');
-const { error } = require('console');
+
 router.post('/',(req,res)=>{
   var obj = {};
   if(req.body.username) obj.username = req.body.username;
   if(req.body.password) obj.password = req.body.password;
   if(req.body.phone) obj.phone = parseInt(req.body.phone);
-  accountService.findLogin(obj).then(data=>{
+  accountService.findLogin(obj.username).then(data=>{
       if(data.length==0){
         accountService.createAccount(obj).then(data=>{
             res.json({

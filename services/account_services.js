@@ -1,19 +1,19 @@
 var accoutModel = require('../modal/account_modal');
+
 function getAll(){
     return accoutModel.find();
 }
 function getBypaging(index){
-    return accoutModel.find().skip((index-1)*5).limit(5);
+    return accoutModel.find().skip((index-1)*10).limit(10);
 }
 function getById(id){
     return accoutModel.find({
         _id:id
     })
 }
-function findLogin(accout){
+function findLogin(username){
     return accoutModel.find({
-        username : accout.username,
-        password : accout.password
+        username : username,
     })
 }
 function createAccount(accout){

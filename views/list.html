@@ -1,136 +1,171 @@
 <!DOCTYPE html>
 <htPl lang="en">
-<head>
+
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
+  </head>
+  <style>
+    .loading {
+      text-align: center;
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</head>
-<style>
-    body{
-        margin: 30px;
     }
-    .input-group{
-        margin-bottom: 10px;
+
+    body {
+      margin: 30px;
+      overflow: scroll;
     }
-    .paging{
+
+    .input-group {
+      margin-bottom: 10px;
+    }
+
+    .paging {
       margin: 10px;
     }
-    .paging .color{
+
+    .paging .color {
       background-color: black;
       color: white;
       border: 0;
     }
-    .paging .colorIndex{
+
+    .paging .colorIndex {
       background-color: coral;
       color: black;
       border: 0;
     }
-</style>
-<body>
-    <div class="input-group">
-        <select class="custom-select" id="inputGroupSelect04">
+  </style>
 
-        </select>
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" id="search">search</button>
-        </div>
+  <body>
+    <div class="input-group">
+      <select class="custom-select" id="inputGroupSelect04">
+
+      </select>
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" id="search">search</button>
       </div>
+    </div>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+      Create accout
+    </button>
     <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">username</th>
-            <th scope="col">password</th>
-            <th scope="col">phone</th>
-            <th scope="col">sửa</th>
-            <th scope="col">xóa</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-      <div class="paging">
-       
-      </div>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-        Create accout
-      </button>
-      
-      <!-- Modal -->
-      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form>
-                  username: <input type="text" id="createUsername" required><br>
-                  password: <input type="text" id="createPassword" required><br>
-                  phone: <input type="text" id="createPhone">
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" id="create">create</button>
-            </div>
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">username</th>
+          <th scope="col">password</th>
+          <th scope="col">phone</th>
+          <th scope="col">sửa</th>
+          <th scope="col">xóa</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <div class="loading">
+      <i class="fa fa-spinner fa-spin" style="font-size:44px"></i>
+    </div>
+
+    <div class="paging">
+
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              username: <input type="text" id="createUsername" required><br>
+              password: <input type="text" id="createPassword" required><br>
+              phone: <input type="text" id="createPhone">
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="create">create</button>
           </div>
         </div>
       </div>
-      
-</body>
-<script>
-  var index = 1;
-  function getPaging(){
-   $(".paging").empty();
-    $.ajax({
-            url: '/',
-            type:'GET'
-        }).then(data=>{
-       var pagingSize = Math.ceil(data.length/5);
-       var btnIndex1 =`
-         <button class="colorIndex" type="button" id="paging-1" value="1" onclick=indexFunction(1) >1</button>`
-         $(".paging").append(btnIndex1);
-       for(var i=2;i<=pagingSize;i++){
-         var btnIndex =`
-         <button  class="color" type="button" id="paging-${i}" value="${i}" onclick=indexFunction("${i}")>${i}</button>
-         `
-         $(".paging").append(btnIndex);
-       }
-  })
-  }
-  getPaging();
-    function getData(index){
-     
-        $("tbody").empty();
+    </div>
 
-        $(".custom-select").empty();
-        $.ajax({
-            url: '/',
-            type:'GET'
-        }).then(data=>{
-       var optionAll = '<option value="0">All</option>'
-            $("#inputGroupSelect04").append(optionAll);
-            for(var i=0;i<data.length;i++){
-              var optionId =`
+  </body>
+  <script>
+
+    var index = 1;
+
+    // function getPaging(){
+    //  $(".paging").empty();
+    //   $.ajax({
+    //           url: '/',
+    //           type:'GET'
+    //       }).then(data=>{
+    //      var pagingSize = Math.ceil(data.length/5);
+    //      var btnIndex1 =`
+    //        <button class="colorIndex" type="button" id="paging-1" value="1" onclick=indexFunction(1) >1</button>`
+    //        $(".paging").append(btnIndex1);
+    //      for(var i=2;i<=pagingSize;i++){
+    //        var btnIndex =`
+    //        <button  class="color" type="button" id="paging-${i}" value="${i}" onclick=indexFunction("${i}")>${i}</button>
+    //        `
+    //        $(".paging").append(btnIndex);
+    //      }
+    // })
+    // }
+    // getPaging();
+    $(window).scroll(function () {
+      if ($(window).scrollTop() + $(window).height() + 1 >= $(document).height()) {     
+        index++;
+        setTimeout(function () {
+          getData(index)
+        }, 500)
+      }
+    })
+    function getData(index) {
+      $(".loading").hide();
+      $(".custom-select").empty();
+      $.ajax({
+        url: '/',
+        type: 'GET'
+      }).then(data => {
+        var optionAll = '<option value="0">All</option>'
+        $("#inputGroupSelect04").append(optionAll);
+        for (var i = 0; i < data.length; i++) {
+          var optionId = `
             <option value="${data[i]._id}">${data[i]._id}</option>
             `
-            $("#inputGroupSelect04").append(optionId);
-            }
-       $.ajax({
-            url: '/'+index,
-            type:'GET'
-       }).then(data=>{
-        console.log(index);
-        for(var i =0;i<data.length;i++){
-                var templete = `  
+          $("#inputGroupSelect04").append(optionId);
+        }
+        $.ajax({
+          url: '/' + index,
+          type: 'GET'
+        }).then(data => {
+          if (data.length == 0) {
+            $(".loading").text("end");
+          }
+          console.log(index);
+          for (var i = 0; i < data.length; i++) {
+            var templete = `  
             <tr>
             <td>
                 <p>${data[i].username}</p>
@@ -149,61 +184,62 @@
             <td><button type="button" class="btn btn-outline-secondary" onclick=deleteFunction("${data[i]._id}")  data-toggle="modal" data-target="#exampleModal">xóa</button></td>
           </tr>       
             `
-          
-
             $("tbody").append(templete);
-            }
-
-       })     
+          }
         })
+      })
+      // $("tbody").animate({ scrollTop: $(".loading").offset().top }, 5000, 'easeOutBounce');
+      $(".loading").show();
+
     }
-    function editFunction(id){
-        $("#edit-"+id).css("display","none");
-        $("#save-"+id).css("display","inline-block");
-        $("#huy-"+id).css("display","inline-block");
-        $("#edit-"+id).parent().parent().find("p").css("display","none");
-        $("#edit-"+id).parent().parent().find("input").css("display","inline-block");
-      
+    function editFunction(id) {
+      $("#edit-" + id).css("display", "none");
+      $("#save-" + id).css("display", "inline-block");
+      $("#huy-" + id).css("display", "inline-block");
+      $("#edit-" + id).parent().parent().find("p").css("display", "none");
+      $("#edit-" + id).parent().parent().find("input").css("display", "inline-block");
+
     };
-    function huyFunction(id){
-        $("#edit-"+id).css("display","inline-block");
-        $("#save-"+id).css("display","none");
-        $("#huy-"+id).css("display","none");
-        $("#edit-"+id).parent().parent().find("p").css("display","inline-block");
-        $("#edit-"+id).parent().parent().find("input").css("display","none");
-        getData(index);
+    function huyFunction(id) {
+      $("#edit-" + id).css("display", "inline-block");
+      $("#save-" + id).css("display", "none");
+      $("#huy-" + id).css("display", "none");
+      $("#edit-" + id).parent().parent().find("p").css("display", "inline-block");
+      $("#edit-" + id).parent().parent().find("input").css("display", "none");
+      // getData(index);
+      // window.location.href ="http://localhost:3000/list";
     };
-    function saveFunction(id){
-        $("#edit-"+id).css("display","inline-block");
-        $("#save-"+id).css("display","none");
-        $("#huy-"+id).css("display","none");
-        $("#edit-"+id).parent().parent().find("p").css("display","inline-block");
-        $("#edit-"+id).parent().parent().find("input").css("display","none");
-       
-         var username = $("#save-"+id).parent().parent().find("#username").val();
-         var password = $("#save-"+id).parent().parent().find("#password").val();
-         var phone = $("#save-"+id).parent().parent().find("#phone").val();
-        var id = id;
-     console.log(id);
-        $.ajax({
-            url: '/',
-            type: 'PUT',
-            data :{
-                id: id,
-                username : username,
-                password : password,
-                phone : phone
-            }
-        }).then(data=>{
-            getData(index);
-    //  window.location.href ="http://localhost:3000/list";
-        })
-     
+    function saveFunction(id) {
+      $("#edit-" + id).css("display", "inline-block");
+      $("#save-" + id).css("display", "none");
+      $("#huy-" + id).css("display", "none");
+      $("#edit-" + id).parent().parent().find("p").css("display", "inline-block");
+      $("#edit-" + id).parent().parent().find("input").css("display", "none");
+
+      var username = $("#save-" + id).parent().parent().find("#username").val();
+      var password = $("#save-" + id).parent().parent().find("#password").val();
+      var phone = $("#save-" + id).parent().parent().find("#phone").val();
+      var id = id;
+      console.log(id);
+      $.ajax({
+        url: '/',
+        type: 'PUT',
+        data: {
+          id: id,
+          username: username,
+          password: password,
+          phone: phone
+        }
+      }).then(data => {
+        // getData(index);
+         window.location.href ="http://localhost:3000/list";
+      })
+
     };
 
-function deleteFunction(id){
-    var id = id;
-    var templete =  `
+    function deleteFunction(id) {
+      var id = id;
+      var templete = `
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -225,47 +261,49 @@ function deleteFunction(id){
 </div>
 
     `
-$("body").append(templete);
+      $("body").append(templete);
 
-  
-}
 
-function clearFunction(id){
-    console.log(id);
-  $.ajax({
-        url : '/',
+    }
+
+    function clearFunction(id) {
+      console.log(id);
+      $.ajax({
+        url: '/',
         type: 'DELETE',
-        data : {
-            id : id
+        data: {
+          id: id
         }
-    }).then(data=>{
-      var pagingSize = Math.ceil(data.length/5);
-      if(pagingSize<index){
-        $("#paging-"+index).remove();
-        index=1;
-        getPaging();
-      }
+      }).then(data => {
+        var pagingSize = Math.ceil(data.length / 5);
+        if (pagingSize < index) {
+          $("#paging-" + index).remove();
+          index = 1;
+          getPaging();
+        }
 
         alert("xoa thanh cong");
+        // getData(index);
+        window.location.href ="http://localhost:3000/list";
+      })
+    }
+    $("#search").click(function () {
+      $("tbody").empty();
+      var id = $(this).parent().parent().find("#inputGroupSelect04").val();
+      console.log(id);
+      if (id == 0) {
+        index=1;
+        // getPaging();
+        
         getData(index);
-        // window.location.href ="http://localhost:3000/list";
-    })
-}
-$("#search").click(function(){
-    $("tbody").empty();
-    var id = $(this).parent().parent().find("#inputGroupSelect04").val();
-    console.log(id);
-    if(id==0){
-    
-      getPaging();
-      getData(index);
-    }else{
+        $(".loading").hide();
+      } else {
         $.ajax({
-            url: '/list/'+id,
-            type:'GET',
-        }).then(data=>{
-            console.log(data);
-            var templete = `  
+          url: '/list/' + id,
+          type: 'GET',
+        }).then(data => {
+          console.log(data);
+          var templete = `  
             <tr>
             <td>
                 <p>${data[0].username}</p>
@@ -284,51 +322,51 @@ $("#search").click(function(){
             <td><button type="button" class="btn btn-outline-secondary" onclick=deleteFunction("${data[0]._id}")  data-toggle="modal" data-target="#exampleModal">xóa</button></td>
           </tr>       
             `
-            $("tbody").append(templete);
-            $(".paging").empty();
+          $("tbody").append(templete);
+          $(".loading").hide()
+          // $(".paging").empty();
         })
-    }
-})    
+      }
+    })
 
-$("#create").click(function(){
-    var username = $(this).parent().parent().find("#createUsername").val();
-    var password = $(this).parent().parent().find("#createPassword").val();
-    var phone = $(this).parent().parent().find("#createPhone").val();
-    console.log(username);
-    $.ajax({
+    $("#create").click(function () {
+      var username = $(this).parent().parent().find("#createUsername").val();
+      var password = $(this).parent().parent().find("#createPassword").val();
+      var phone = $(this).parent().parent().find("#createPhone").val();
+      console.log(username);
+      $.ajax({
         url: '/',
         type: 'POST',
-        data:{
-            username :username,
-            password :password,
-            phone:phone
+        data: {
+          username: username,
+          password: password,
+          phone: phone
         }
-    }).then(data=>{
-        if(username==''||password==''||phone==''){
-            data.error = false;
+      }).then(data => {
+        if (username == '' || password == '' || phone == '') {
+          data.error = false;
         }
-        if(data.error){  
-            alert("dang ki thanh cong");   
-            $("#exampleModalCenter").modal("hide");
-            
-            getData(index); 
-            getPaging();
-        }else{
-            alert("tai khoan hoac mat khau da ton tai");
+        if (data.error) {
+          alert("dang ki thanh cong");
+          $("#exampleModalCenter").modal("hide");
+
+          getData(index);
+          // getPaging();
+        } else {
+          alert("tai khoan hoac mat khau da ton tai");
         }
+      })
     })
-})
 
-function indexFunction(i){
-  $("button").removeClass("colorIndex");
-  $("button").addClass("color");
-  $("#paging-"+i).removeClass("color");
-  $("#paging-"+i).addClass("colorIndex");
-  index = i;
-getData(index);
-
-}
+    // function indexFunction(i) {
+    //   $("button").removeClass("colorIndex");
+    //   $("button").addClass("color");
+    //   $("#paging-" + i).removeClass("color");
+    //   $("#paging-" + i).addClass("colorIndex");
+    //   index = i;
+    //   getData(index);
+    // }
     getData(index);
-    
-</script>
+
+  </script>
 </htPl>
