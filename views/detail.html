@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
+</head>
+<body>
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">username</th>
+            <th scope="col">password</th>
+            <th scope="col">phone</th>
+            <th scope="col">sửa</th>
+            <th scope="col">xóa</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+</body>
+<script>
+        var username = window.location.pathname.split("/detail/")[1]; 
+        $.ajax({
+          url: '/detail2/' + username,
+          type: 'GET',
+        }).then(data => {
+          var templete = `  
+            <tr>
+            <td>
+                <p>${data[0].username}</p>
+                <input type="text" style="display:none" name="username" id="username" value="${data[0].username}">
+                </td>
+            <td><p>${data[0].password}</p>
+                <input type="text" style="display:none" name="password" id="password" value="${data[0].password}">
+                </td>
+            <td><p>${data[0].phone}</p>
+                <input type="text" style="display:none" name="phone" id="phone" value="${data[0].phone}">
+                </td>
+            <td><button type="button" class="btn btn-outline-secondary"  onclick=editFunction("${data[0]._id}") id="edit-${data[0]._id}">sửa</button>
+                <button type="button" class="btn btn-outline-secondary" style="display:none" onclick=saveFunction("${data[0]._id}") id="save-${data[0]._id}">save</button>
+                <button type="button" class="btn btn-outline-secondary" style="display:none" onclick=huyFunction("${data[0]._id}") id="huy-${data[0]._id}">hủy</button>
+                </td>
+            <td><button type="button" class="btn btn-outline-secondary" onclick=deleteFunction("${data[0]._id}")  data-toggle="modal" data-target="#exampleModal">xóa</button></td>
+          </tr>       
+            `
+          $("tbody").append(templete);
+        });
+</script>
+</html>

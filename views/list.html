@@ -157,7 +157,7 @@
           $("#inputGroupSelect04").append(optionId);
         }
         $.ajax({
-          url: '/' + index,
+          url: '/list/' + index,
           type: 'GET'
         }).then(data => {
           if (data.length == 0) {
@@ -181,7 +181,9 @@
                 <button type="button" class="btn btn-outline-secondary" style="display:none" onclick=saveFunction("${data[i]._id}") id="save-${data[i]._id}">save</button>
                 <button type="button" class="btn btn-outline-secondary" style="display:none" onclick=huyFunction("${data[i]._id}") id="huy-${data[i]._id}">hủy</button>
                 </td>
-            <td><button type="button" class="btn btn-outline-secondary" onclick=deleteFunction("${data[i]._id}")  data-toggle="modal" data-target="#exampleModal">xóa</button></td>
+            <td><button type="button" class="btn btn-outline-secondary" onclick=deleteFunction("${data[i]._id}")  data-toggle="modal" data-target="#exampleModal">xóa</button>
+              <button type="button" class="btn btn-outline-secondary" onclick=detailFunction("${data[i].username}")  data-toggle="modal" data-target="#exampleModal">detail</button>
+              </td>
           </tr>       
             `
             $("tbody").append(templete);
@@ -366,6 +368,10 @@
     //   index = i;
     //   getData(index);
     // }
+
+    function detailFunction(username){
+      window.location.href ="http://localhost:3000/detail/"+username;
+    }
     getData(index);
 
   </script>
